@@ -11,6 +11,7 @@ export class ApiService {
 
   constructor(private http: HttpClient) {}
 
+<<<<<<< HEAD
   // --- RUTAS DE LIBROS ---
   getLibros(buscar: string = '', pagina: number = 0): Observable<any> {
     return this.http.get(`${this.url}/libros?buscar=${buscar}&page=${pagina}&size=5`);
@@ -21,10 +22,25 @@ export class ApiService {
   actualizarLibro(id: number, libro: any): Observable<any> {
     return this.http.put(`${this.url}/libros/${id}`, libro);
   }
+=======
+  getLibros(buscar: string = '', pagina: number = 0): Observable<any> {
+    return this.http.get(`${this.url}/libros?buscar=${buscar}&page=${pagina}&size=5`);
+  }
+
+  crearLibro(libro: any): Observable<any> {
+    return this.http.post(`${this.url}/libros`, libro);
+  }
+
+  actualizarLibro(id: number, libro: any): Observable<any> {
+    return this.http.put(`${this.url}/libros/${id}`, libro);
+  }
+
+>>>>>>> 21ab82ae55f2408850569d14f74126f4a70536a3
   eliminarLibro(id: number): Observable<any> {
     return this.http.delete(`${this.url}/libros/${id}`);
   }
 
+<<<<<<< HEAD
   // --- RUTAS DE AUTORES ---
   getAutores(): Observable<any> {
     return this.http.get(`${this.url}/autores`);
@@ -62,4 +78,9 @@ crearUsuario(usuario: any): Observable<any> {
   actualizarUsuario(id: number, usuario: any): Observable<any> {
     return this.http.put(`${this.url}/usuarios/${id}`, usuario);
   }
+=======
+  guardarPrestamo(datos: any): Observable<any> {
+    return this.http.post(`${this.url}/prestamos`, datos);
+  }
+>>>>>>> 21ab82ae55f2408850569d14f74126f4a70536a3
 }

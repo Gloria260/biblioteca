@@ -13,9 +13,18 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface LibroRepository extends JpaRepository<Libro, Long> {
+<<<<<<< HEAD
     
     Page<Libro> findByTituloContainingIgnoreCaseOrAutorNombreContainingIgnoreCase(String titulo, String autorNombre, Pageable pageable);
     
     // Método para la regla de negocio: validar si un autor tiene libros
     boolean existsByAutorId(Long autorId);
 }
+=======
+
+    // Búsqueda paginada por título o nombre del autor
+    Page<Libro> findByTituloContainingIgnoreCaseOrAutorNombreContainingIgnoreCase(
+            String titulo, String autorNombre, Pageable pageable
+    );
+}
+>>>>>>> 21ab82ae55f2408850569d14f74126f4a70536a3

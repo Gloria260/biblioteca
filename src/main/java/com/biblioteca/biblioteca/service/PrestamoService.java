@@ -1,3 +1,11 @@
+<<<<<<< HEAD
+=======
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+
+>>>>>>> 21ab82ae55f2408850569d14f74126f4a70536a3
 package com.biblioteca.biblioteca.service;
 
 import com.biblioteca.biblioteca.dto.PrestamoDTO;
@@ -10,7 +18,11 @@ import com.biblioteca.biblioteca.repository.UsuarioRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+<<<<<<< HEAD
 import java.time.temporal.ChronoUnit;
+=======
+
+>>>>>>> 21ab82ae55f2408850569d14f74126f4a70536a3
 import java.util.List;
 
 @Service
@@ -47,6 +59,7 @@ public class PrestamoService {
         Usuario usuario = usuarioRepository.findById(dto.getUsuarioId())
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
+<<<<<<< HEAD
         // NUEVA REGLA DE NEGOCIO: Validar fechas y límite de 15 días
         if (dto.getFechaPrestamo() != null && dto.getFechaDevolucion() != null) {
             long dias = ChronoUnit.DAYS.between(dto.getFechaPrestamo(), dto.getFechaDevolucion());
@@ -66,6 +79,8 @@ public class PrestamoService {
             throw new RuntimeException("El libro ya se encuentra prestado y no ha sido devuelto.");
         }
 
+=======
+>>>>>>> 21ab82ae55f2408850569d14f74126f4a70536a3
         Prestamo prestamo = new Prestamo();
         prestamo.setLibro(libro);
         prestamo.setUsuario(usuario);
@@ -82,4 +97,8 @@ public class PrestamoService {
         prestamo.setDevuelto(true);
         return prestamoRepository.save(prestamo);
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 21ab82ae55f2408850569d14f74126f4a70536a3

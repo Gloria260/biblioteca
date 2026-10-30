@@ -11,7 +11,10 @@ import { ApiService } from '../services/api.service';
 })
 export class Libros implements OnInit {
   libros: any[] = [];
+<<<<<<< HEAD
   autores: any[] = []; // NUEVO: Arreglo para guardar los autores
+=======
+>>>>>>> 21ab82ae55f2408850569d14f74126f4a70536a3
   seleccionado: any = null;
   filtro: string = '';
   pagina: number = 0;
@@ -19,14 +22,20 @@ export class Libros implements OnInit {
   fechaDevolucion: string = '';
   mensaje: string = '';
 
+<<<<<<< HEAD
   // Formulario para Crear / Editar (autorId inicia en null)
   nuevoLibro: any = { id: null, titulo: '', isbn: '', anio: 2024, autorId: null };
+=======
+  // Formulario para Crear / Editar
+  nuevoLibro: any = { id: null, titulo: '', isbn: '', anio: 2024, autorId: 1 };
+>>>>>>> 21ab82ae55f2408850569d14f74126f4a70536a3
   modoEdicion: boolean = false;
 
   constructor(public api: ApiService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.cargar();
+<<<<<<< HEAD
     this.cargarAutores(); // Carga la lista de autores al entrar a la pantalla
   }
 
@@ -60,6 +69,34 @@ export class Libros implements OnInit {
       }
     });
   }
+=======
+  }
+
+  cargar(): void {
+  this.api.getLibros(this.filtro, this.pagina).subscribe({
+    next: (res: any) => {
+      console.log('Respuesta recibida del backend:', res);
+
+      // Si la respuesta es una Lista directa [] o un objeto con .content
+      if (Array.isArray(res)) {
+        this.libros = res;
+        this.totalPaginas = 1;
+      } else if (res && res.content) {
+        this.libros = res.content;
+        this.totalPaginas = res.totalPages || 1;
+      } else {
+        this.libros = [];
+      }
+
+      // Forzar renderizado en pantalla
+      this.cdr.detectChanges();
+    },
+    error: (err) => {
+      console.error('Error al conectar con Spring Boot:', err);
+    }
+  });
+}
+>>>>>>> 21ab82ae55f2408850569d14f74126f4a70536a3
 
   buscar(): void {
     this.pagina = 0;
@@ -87,7 +124,11 @@ export class Libros implements OnInit {
 
   editar(libro: any): void {
     this.modoEdicion = true;
+<<<<<<< HEAD
     this.nuevoLibro = { ...libro, autorId: libro.autor?.id || null };
+=======
+    this.nuevoLibro = { ...libro, autorId: libro.autor?.id || 1 };
+>>>>>>> 21ab82ae55f2408850569d14f74126f4a70536a3
   }
 
   eliminar(id: number): void {
@@ -98,7 +139,11 @@ export class Libros implements OnInit {
 
   limpiarFormulario(): void {
     this.modoEdicion = false;
+<<<<<<< HEAD
     this.nuevoLibro = { id: null, titulo: '', isbn: '', anio: 2024, autorId: null };
+=======
+    this.nuevoLibro = { id: null, titulo: '', isbn: '', anio: 2024, autorId: 1 };
+>>>>>>> 21ab82ae55f2408850569d14f74126f4a70536a3
   }
 
   pedirPrestamo(): void {

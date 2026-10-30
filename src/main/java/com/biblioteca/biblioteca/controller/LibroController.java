@@ -33,7 +33,11 @@ public class LibroController {
 
     @PostMapping
     public Libro guardar(@RequestBody LibroDTO dto) {
+<<<<<<< HEAD
         return libroService.crearLibro(dto);
+=======
+        return libroService.guardar(dto);
+>>>>>>> 21ab82ae55f2408850569d14f74126f4a70536a3
     }
 
     @PutMapping("/{id}")
