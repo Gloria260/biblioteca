@@ -1,0 +1,48 @@
+<div class="container mt-4">
+  <h2 class="text-primary mb-3">Gestión de Autores</h2>
+
+  <div class="card p-3 mb-4 border-secondary bg-light">
+    <h5>Registrar Nuevo Autor</h5>
+    <div class="row g-2">
+      <div class="col-md-3">
+        <input type="text" class="form-control" placeholder="Nombre" [(ngModel)]="nuevoAutor.nombre">
+      </div>
+      <div class="col-md-3">
+        <input type="text" class="form-control" placeholder="Apellido" [(ngModel)]="nuevoAutor.apellido">
+      </div>
+      <div class="col-md-3">
+        <input type="text" class="form-control" placeholder="Nacionalidad" [(ngModel)]="nuevoAutor.nacionalidad">
+      </div>
+      <div class="col-md-2">
+        <input type="date" class="form-control" [(ngModel)]="nuevoAutor.fechaNacimiento" title="Fecha de nacimiento">
+      </div>
+      <div class="col-md-1 d-flex">
+        <button class="btn btn-success flex-grow-1" (click)="guardarAutor()">Guardar</button>
+      </div>
+    </div>
+  </div>
+
+  <table class="table table-bordered table-striped align-middle">
+    <thead class="table-dark">
+      <tr>
+        <th>Nombre Completo</th>
+        <th>Nacionalidad</th>
+        <th>Fecha de Nac.</th>
+        <th class="text-center">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let a of autores">
+        <td>{{ a.nombre }} {{ a.apellido }}</td>
+        <td>{{ a.nacionalidad }}</td>
+        <td>{{ a.fechaNacimiento }}</td>
+        <td class="text-center">
+          <button class="btn btn-sm btn-danger" (click)="eliminar(a.id)">Eliminar</button>
+        </td>
+      </tr>
+      <tr *ngIf="autores.length === 0">
+        <td colspan="4" class="text-center text-muted">No hay autores registrados...</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

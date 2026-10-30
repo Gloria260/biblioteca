@@ -1,0 +1,26 @@
+<!-- Barra de Navegación -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4 shadow">
+  <div class="container">
+    <a class="navbar-brand fw-bold text-white">📚 Sistema de Biblioteca</a>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/libros" routerLinkActive="active">Catálogo de Libros</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/autores" routerLinkActive="active">Gestión de Autores</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/prestamos" routerLinkActive="active">Control de Préstamos</a>
+        </li>
+        <!-- Nuevo botón para la Gestión de Usuarios -->
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/usuarios" routerLinkActive="active">Gestión de Usuarios</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Aquí se inyectan dinámicamente las pantallas según la ruta -->
+<router-outlet></router-outlet>

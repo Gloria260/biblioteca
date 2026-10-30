@@ -1,0 +1,78 @@
+<div class="container mt-4">
+  <h2 class="text-primary mb-3">Gestión de Catálogo de Libros</h2>
+
+  <!-- Formulario de Registro / Edición -->
+  <div class="card p-3 mb-4 border-secondary bg-light">
+    <h5>{{ modoEdicion ? 'Editar Libro' : 'Nuevo Libro' }}</h5>
+    <div class="row g-2">
+      <div class="col-md-3">
+        <input type="text" class="form-control" placeholder="Título" [(ngModel)]="nuevoLibro.titulo">
+      </div>
+      <div class="col-md-2">
+        <input type="text" class="form-control" placeholder="ISBN" [(ngModel)]="nuevoLibro.isbn">
+      </div>
+      <div class="col-md-2">
+        <input type="number" class="form-control" placeholder="Año" [(ngModel)]="nuevoLibro.anio">
+      </div>
+      <div class="col-md-3">
+        <!-- NUEVO: Selector de Autor -->
+        <select class="form-select" [(ngModel)]="nuevoLibro.autorId">
+          <option [ngValue]="null" disabled selected>Seleccione Autor...</option>
+          <option *ngFor="let a of autores" [value]="a.id">{{ a.nombre }} {{ a.apellido }}</option>
+        </select>
+      </div>
+      <div class="col-md-2 d-flex gap-1">
+        <button class="btn btn-success flex-grow-1" (click)="guardarLibro()">{{ modoEdicion ? 'Actualizar' : 'Guardar' }}</button>
+        <button *ngIf="modoEdicion" class="btn btn-secondary flex-grow-1" (click)="limpiarFormulario()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Buscador -->
+  <input type="text" class="form-control mb-3" [(ngModel)]="filtro" (keyup)="buscar()" placeholder="Buscar por título o autor...">
+
+  <!-- Tabla de Libros -->
+  <table class="table table-bordered table-striped align-middle">
+    <thead class="table-dark">
+      <tr>
+        <th>Título</th>
+        <th>ISBN</th>
+        <th>Autor</th>
+        <th class="text-center">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let l of libros">
+        <td>{{ l.titulo }}</td>
+        <td>{{ l.isbn }}</td>
+        <td>{{ l.autor?.nombre }} {{ l.autor?.apellido }}</td>
+        <td class="text-center">
+          <button class="btn btn-sm btn-info text-white me-1" (click)="verDetalle(l)">Ver</button>
+          <button class="btn btn-sm btn-warning me-1" (click)="editar(l)">Editar</button>
+          <button class="btn btn-sm btn-danger" (click)="eliminar(l.id)">Eliminar</button>
+        </td>
+      </tr>
+      <tr *ngIf="libros.length === 0">
+        <td colspan="4" class="text-center text-muted">No hay libros registrados o cargando...</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Paginación -->
+  <div class="d-flex justify-content-between align-items-center my-3">
+    <button class="btn btn-secondary btn-sm" [disabled]="pagina === 0" (click)="pagina = pagina - 1; cargar()">Anterior</button>
+    <span>Página {{ pagina + 1 }} de {{ totalPaginas }}</span>
+    <button class="btn btn-secondary btn-sm" [disabled]="pagina >= totalPaginas - 1" (click)="pagina = pagina + 1; cargar()">Siguiente</button>
+  </div>
+
+  <!-- Detalle del Libro seleccionado -->
+  <!-- Detalle del Libro seleccionado -->
+  <div *ngIf="seleccionado" class="card mt-4 p-3 border-primary bg-light">
+    <h4>Detalle: {{ seleccionado.titulo }}</h4>
+    <p><strong>Año:</strong> {{ seleccionado.anio }} | <strong>ISBN:</strong> {{ seleccionado.isbn }}</p>
+    <div class="border-top pt-2">
+      <!-- Aquí mostraremos el estado. Por ahora es un texto estático, requiere un ajuste en el backend para ser dinámico -->
+      <p class="mb-0"><strong>Estado actual:</strong> Revise la pestaña de Préstamos para verificar disponibilidad.</p>
+    </div>
+  </div>
+</div>

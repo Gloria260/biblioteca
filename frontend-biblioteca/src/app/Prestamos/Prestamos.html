@@ -1,0 +1,68 @@
+<div class="container mt-4">
+  <h2 class="text-primary mb-3">Control de Préstamos</h2>
+
+  <!-- Formulario Completo -->
+  <div class="card p-3 mb-4 border-primary bg-light">
+    <h5>Registrar Nuevo Préstamo</h5>
+    <div class="row g-2 align-items-end">
+      <div class="col-md-3">
+        <label class="form-label mb-1 fw-bold">1. Seleccione Libro</label>
+        <select class="form-select" [(ngModel)]="nuevoPrestamo.libroId">
+          <option [ngValue]="null" disabled selected>Elija un libro...</option>
+          <option *ngFor="let l of libros" [value]="l.id">{{ l.titulo }}</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <label class="form-label mb-1 fw-bold">2. Seleccione Usuario</label>
+        <select class="form-select" [(ngModel)]="nuevoPrestamo.usuarioId">
+          <option [ngValue]="null" disabled selected>Elija un usuario...</option>
+          <!-- Se asume que el usuario tiene 'username', si tu modelo usa 'nombre' cámbialo aquí -->
+          <option *ngFor="let u of usuarios" [value]="u.id">{{ u.username || 'Usuario ID: ' + u.id }}</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <label class="form-label mb-1 fw-bold">3. Fecha Devolución</label>
+        <input type="date" class="form-control" [(ngModel)]="nuevoPrestamo.fechaDevolucion" title="Máximo 15 días">
+      </div>
+      <div class="col-md-3">
+        <button class="btn btn-success w-100 fw-bold" (click)="registrarPrestamo()">Confirmar Préstamo</button>
+      </div>
+    </div>
+    
+    <!-- Mensajes de Alerta -->
+    <div *ngIf="mensaje" class="alert alert-success mt-3 mb-0 py-2">{{ mensaje }}</div>
+    <div *ngIf="error" class="alert alert-danger mt-3 mb-0 py-2">{{ error }}</div>
+  </div>
+
+  <!-- Tabla de Inventario -->
+  <table class="table table-bordered table-striped align-middle mt-3">
+    <thead class="table-dark">
+      <tr>
+        <th>Libro Prestado</th>
+        <th>Usuario Receptor</th>
+        <th>Fecha Préstamo</th>
+        <th>Fecha Límite</th>
+        <th class="text-center">Estado / Acción</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of prestamos">
+        <td>{{ p.libro?.titulo }}</td>
+        <td>{{ p.usuario?.username || 'Usuario ID: ' + p.usuario?.id }}</td>
+        <td>{{ p.fechaPrestamo }}</td>
+        <td>{{ p.fechaDevolucion }}</td>
+        <td class="text-center">
+          <!-- Si ya lo devolvió, se ve un aviso verde -->
+          <span *ngIf="p.devuelto" class="badge bg-success fs-6">Libre / Devuelto</span>
+          <!-- Si está en préstamo, sale el botón naranja para devolverlo -->
+          <button *ngIf="!p.devuelto" class="btn btn-sm btn-warning fw-bold" (click)="devolverLibro(p.id)">
+            Marcar Devuelto
+          </button>
+        </td>
+      </tr>
+      <tr *ngIf="prestamos.length === 0">
+        <td colspan="5" class="text-center text-muted py-3">No hay préstamos registrados en el sistema.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
